@@ -1,24 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import Layout from "./components/Layout";
+import { Route, Switch } from "react-router-dom";
+import HomePage from "./pages/Home";
+import FormSign from "./pages/FormSign";
+import FormUser from "./pages/FormUser";
+import NotFound from "./components/NotFound";
+import PrivateComponent from "./components/PrivateComponent";
+import AccountPage from "./pages/Account";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <Switch>
+        <Route exact path="/login" component={FormSign} />
+        <Route exact path="/register" component={FormSign} />
+        <PrivateComponent exact path="/" component={HomePage} />
+        <PrivateComponent exact path="/account" component={AccountPage} />
+        <PrivateComponent exact path="/users/create" component={FormUser} />
+        <PrivateComponent exact path="/users/edit/:userId" component={FormUser} />
+        <Route component={NotFound} />
+      </Switch>
+    </Layout>
   );
 }
 
